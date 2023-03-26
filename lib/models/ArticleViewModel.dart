@@ -12,15 +12,23 @@ class ArticleViewModel extends ChangeNotifier{
     notifyListeners();
   }
   void generateArticle(){
-    // Récupère la Future<List<Article>> de la méthode getArticlesAPI de la classe Article
     Article.getArticlesAPI().then((value) {
       liste = value;
       notifyListeners();
     });
   }
-
   void deleteArticle(int id){
     liste.removeWhere((element) => element.id == id);
     notifyListeners();
+  }
+
+  void updateArticle(Article article){
+    liste.removeWhere((element) => element.id == article.id);
+    liste.add(article);
+    notifyListeners();
+  }
+
+  Future<List<Article>> getArticles() async{
+    return liste;
   }
 }

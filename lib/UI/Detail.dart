@@ -44,10 +44,7 @@ class Detail extends StatelessWidget{
             title: Text("Description"),
             subtitle: Text(article?.description ?? ''),
           ),
-          ListTile(
-            title: Text("Images"),
-            trailing: Image.network(article?.images[0] ?? ''),
-          ),
+
           ListTile(
             title: Text("CreationAt"),
             subtitle: Text(article?.creationAt.toString() ?? ''),

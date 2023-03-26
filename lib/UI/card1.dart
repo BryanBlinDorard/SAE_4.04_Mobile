@@ -22,7 +22,7 @@ class Card1 extends StatelessWidget{
               child: Text(articles[index].getId.toString()),
             ),
             title: Text(articles[index].title ?? ''),
-            subtitle: Text(articles[index].description ?? ''),
+            subtitle: Text(articles[index].description.length > 25 ? articles[index].description.substring(0, 25) + '...' : articles[index].description),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) => Detail(articles[index])

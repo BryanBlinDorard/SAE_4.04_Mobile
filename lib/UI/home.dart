@@ -74,7 +74,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.new_releases),
-            label: 'Nouveautés',
+            label: 'Mes favoris',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),

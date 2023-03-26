@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'Category.dart';
 
@@ -11,8 +10,8 @@ class Article {
   int price;
   String description;
   List<dynamic> images;
-  DateTime creationAt;
-  DateTime updatedAt;
+  String creationAt;
+  String updatedAt;
   Category category;
 
   Article({
@@ -34,8 +33,8 @@ class Article {
       price: 100,
       description: 'Description de l\'article $nb',
       images: ['https://picsum.photos/200/300'],
-      creationAt: DateTime.now(),
-      updatedAt: DateTime.now(),
+      creationAt: DateTime.now().toString(),
+      updatedAt: DateTime.now().toString(),
       category: Category(id: 1, name: 'Category 1'),
     );
   }
@@ -45,8 +44,8 @@ class Article {
     required int price,
     required String description,
     required List<dynamic> images,
-    required DateTime creationAt,
-    required DateTime updatedAt,
+    required String creationAt,
+    required String updatedAt,
     required Category category,
   }) {
     nb++; //attribut static de la classe.
@@ -77,7 +76,6 @@ class Article {
     List<Article> articles = [];
 
     await Future.delayed(Duration(seconds: 2));
-    debugPrint("avant Load");
     final String apiUrl = 'https://api.escuelajs.co/api/v1/products';
 
     // Envoi de la requête GET
@@ -86,7 +84,6 @@ class Article {
     if (response.statusCode == 200) {
       // Conversion de la réponse en JSON
       final jsonData = jsonDecode(response.body);
-
       // Parcours de la liste des articles
       for (var item in jsonData) {
         // Création d'un article
@@ -95,8 +92,8 @@ class Article {
           price: item['price'],
           description: item['description'],
           images: item['images'],
-          creationAt: DateTime.parse(item['creationAt']),
-          updatedAt: DateTime.parse(item['updatedAt']),
+          creationAt: item['creationAt'],
+          updatedAt: item['updatedAt'],
           category: Category(
               id: item['category']['id'], name: item['category']['name']),
         );
@@ -120,5 +117,23 @@ class Article {
       'updatedAt': updatedAt,
       'category': category.toJson(),
     };
+  }
+
+  static fromJson(Map<String, dynamic> json) {
+    return Article.newArticleWithArgs(
+      title: json['title'],
+      price: json['price'],
+      description: json['description'],
+      images: json['images'],
+      creationAt: json['creationAt'],
+      updatedAt: json['updatedAt'],
+      category: Category(
+          id: json['category']['id'], name: json['category']['name']),
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Article{id: $id, title: $title, price: $price, description: $description, images: $images, creationAt: $creationAt, updatedAt: $updatedAt, category: $category}';
   }
 }

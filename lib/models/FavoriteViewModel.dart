@@ -19,9 +19,10 @@ class FavoriteViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  getFavoris() async {
+  Future<List<int>> getFavoris() async {
     _favoris = await _favoriteRepository.getFavoris();
     notifyListeners();
+    return _favoris;
   }
 
   addFavori(int id) {
