@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -41,14 +42,15 @@ class _EcranSettingsState extends State<EcranSettings> {
                   leading: const Icon(Icons.invert_colors),)
               ]),
           SettingsSection(
-              title: const Text('Autre'),
-              tiles: [
-                SettingsTile(
-                  title: const Text('Autre'),
-                  leading: const Icon(Icons.invert_colors),
-                  onPressed: (BuildContext context) {}
-                ),
-              ]),
+            // affiche le mail de l'utilisateur connecté
+            title: Text('Utilisateur'),
+            tiles: [
+              SettingsTile(
+                title: Text(FirebaseAuth.instance.currentUser?.email ?? 'Non connecté'),
+                leading: const Icon(Icons.email),
+              ),
+            ],
+          )
         ],
       ),
     );

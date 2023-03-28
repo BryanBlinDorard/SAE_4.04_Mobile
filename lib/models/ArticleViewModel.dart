@@ -11,11 +11,9 @@ class ArticleViewModel extends ChangeNotifier{
     liste.add(article);
     notifyListeners();
   }
-  void generateArticle(){
-    Article.getArticlesAPI().then((value) {
-      liste = value;
-      notifyListeners();
-    });
+  void generateArticle() async{
+    liste = await Article.getFirebaseArticles();
+    notifyListeners();
   }
   void deleteArticle(int id){
     liste.removeWhere((element) => element.id == id);

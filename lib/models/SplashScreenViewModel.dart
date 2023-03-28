@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sae_flutter/models/SplashScreenRepository.dart';
 
-import 'SettingRepository.dart';
-
 class SplashScreenViewModel extends ChangeNotifier {
   late bool _isCoched;
   late SplashScreenRepository _splashScreenRepository;

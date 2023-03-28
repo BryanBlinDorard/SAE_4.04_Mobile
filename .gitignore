@@ -52,3 +52,6 @@ macos/
 test/
 web/
 windows/
+
+# pas push pour sécurité
+firebase_options.dart

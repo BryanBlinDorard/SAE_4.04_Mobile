@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'Category.dart';
 
@@ -87,7 +88,8 @@ class Article {
       // Parcours de la liste des articles
       for (var item in jsonData) {
         // Création d'un article
-        final article = Article.newArticleWithArgs(
+        final article = Article.newArticleWithArgsAndId(
+          id: item['id'],
           title: item['title'],
           price: item['price'],
           description: item['description'],
@@ -135,5 +137,54 @@ class Article {
   @override
   String toString() {
     return 'Article{id: $id, title: $title, price: $price, description: $description, images: $images, creationAt: $creationAt, updatedAt: $updatedAt, category: $category}';
+  }
+
+  static Future<List<Article>> getFirebaseArticles() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("articles").get();
+    List<Article> articles = [];
+    querySnapshot.docs.forEach((element) {
+      articles.add(
+        Article.newArticleWithArgsAndId(
+          id: element['id'],
+          title: element['title'],
+          price: element['price'],
+          description: element['description'],
+          images: element['images'],
+          creationAt: element['creationAt'],
+          updatedAt: element['updatedAt'],
+          category: Category(
+              id: element['category']['id'], name: element['category']['name']),
+        ),
+      );
+    });
+    return articles;
+  }
+
+  Future<bool> isFavorisArticle(String uidUser) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("favorisUser").where("idUser", isEqualTo: uidUser).get();
+    for (var favoris in querySnapshot.docs) {
+      Map<String, dynamic>? favorisData = favoris.data() as Map<String, dynamic>?;
+      if (favorisData != null) {
+        if (favorisData['idArticle'] == this.id) {
+          print("Article ${this.id} est dans les favoris de l'utilisateur $uidUser");
+          return true;
+        }
+      }
+    }
+    print("Article ${this.id} n'est pas dans les favoris de l'utilisateur $uidUser");
+    return false;
+  }
+
+  static newArticleWithArgsAndId({required id, required title, required price, required description, required images, required creationAt, required updatedAt, required Category category}) {
+    return Article(
+      id: id,
+      title: title,
+      price: price,
+      description: description,
+      images: images,
+      creationAt: creationAt,
+      updatedAt: updatedAt,
+      category: category,
+    );
   }
 }

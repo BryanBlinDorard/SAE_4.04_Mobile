@@ -3,7 +3,7 @@ import 'package:sae_flutter/UI/home.dart';
 import 'package:sae_flutter/models/SplashScreenViewModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'LoginPage.dart';
+import 'login_page.dart';
 
 
 class SplashScreen extends StatelessWidget{

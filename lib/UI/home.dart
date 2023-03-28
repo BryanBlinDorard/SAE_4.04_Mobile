@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sae_flutter/UI/login_page.dart';
 import 'package:sae_flutter/UI/settings.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import 'AddArticle.dart';
+import 'add_article.dart';
 import 'card1.dart';
 import 'card2.dart';
 import 'card3.dart';
@@ -23,8 +25,10 @@ class _HomeState extends State<Home> {
     Card5(),
   ];
 
+
   @override
   Widget build(BuildContext context) {
+    final User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text('HayStore'),
@@ -39,16 +43,53 @@ class _HomeState extends State<Home> {
             tooltip: 'Filtre',
             onPressed: () {},
           ),
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            tooltip: 'Plus',
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Settings()),
-              );
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: const Text('Paramètres'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Settings()),
+                      );
+                    },
+                  ),
+                ),
+                if (FirebaseAuth.instance.currentUser != null)
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: const Icon(Icons.logout),
+                      title: const Text('Se déconnecter'),
+                      onTap: () {
+                        FirebaseAuth.instance.signOut();
+                        // actualiser la page
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => Home()),
+                          (Route<dynamic> route) => false,
+                        );
+                      },
+                    ),
+                  ),
+                if (FirebaseAuth.instance.currentUser == null)
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: const Icon(Icons.login),
+                      title: const Text('Se connecter'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                    ),
+                  ),
+              ];
             },
-          ),
+          )
         ],
       ),
       body: pages[_selectedIndex],
@@ -67,27 +108,28 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+        items: <BottomNavigationBarItem>[
+          const BottomNavigationBarItem(
             icon: Icon(Icons.collections_bookmark),
             label: 'Bibliothèque',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.new_releases),
             label: 'Mes favoris',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'Historique',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.explore),
             label: 'Explorer',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.more_horiz),
-            label: 'Plus',
-          ),
+          if(user == null)
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.more_horiz),
+              label: 'Connexion',
+            ),
         ],
       ),
     );

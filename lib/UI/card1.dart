@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'EditTask.dart';
+import 'edit_task.dart';
 import '../models/ArticleViewModel.dart';
 import '../models/Article.dart';
-import 'Detail.dart';
+import 'detail.dart';
 
 class Card1 extends StatelessWidget{
   late List<Article> articles;
   String tags = '';
+
+  Card1({super.key});
   @override
   Widget build(BuildContext context) {
     articles = context.watch<ArticleViewModel>().liste;
@@ -21,18 +23,18 @@ class Card1 extends StatelessWidget{
             leading: CircleAvatar(
               child: Text(articles[index].getId.toString()),
             ),
-            title: Text(articles[index].title ?? ''),
-            subtitle: Text(articles[index].description.length > 25 ? articles[index].description.substring(0, 25) + '...' : articles[index].description),
+            title: Text(articles[index].title),
+            subtitle: Text(articles[index].description.length > 30 ? '${articles[index].description.substring(0, 30)}...' : articles[index].description),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
-                builder: (context) => Detail(articles[index])
+                builder: (context) => detail(articles[index])
               ));
             },
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(Icons.delete),
                   onPressed: () {
                     context.read<ArticleViewModel>().deleteArticle(articles[index].getId);
                   },

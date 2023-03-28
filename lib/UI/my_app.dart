@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sae_flutter/UI/SplashScreen.dart';
-import 'package:sae_flutter/models/FavoriteViewModel.dart';
-import 'package:sae_flutter/models/SplashScreenRepository.dart';
+import 'package:sae_flutter/UI/splash_screen.dart';
 import 'package:sae_flutter/models/SplashScreenViewModel.dart';
 
 
@@ -12,7 +10,7 @@ import '../theme/mytheme.dart';
 import 'home.dart';
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +23,10 @@ class MyApp extends StatelessWidget {
           }),
         ChangeNotifierProvider(
           create: (_){
-            ArticleViewModel taskViewModel = ArticleViewModel();
-            taskViewModel.generateArticle();
-            return taskViewModel;
+            ArticleViewModel articleViewModel = ArticleViewModel();
+            articleViewModel.generateArticle();
+            return articleViewModel;
           }),
-        ChangeNotifierProvider(
-          create: (_){
-            FavoriteViewModel favoriteViewModel = FavoriteViewModel();
-            return favoriteViewModel;
-          }
-        ),
         ChangeNotifierProvider(
           create: (_){
             SplashScreenViewModel splashScreenViewModel = SplashScreenViewModel();
