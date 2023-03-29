@@ -27,7 +27,7 @@ class Card1 extends StatelessWidget{
             subtitle: Text(articles[index].description.length > 30 ? '${articles[index].description.substring(0, 30)}...' : articles[index].description),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
-                builder: (context) => detail(articles[index])
+                builder: (context) => detail(article: articles[index])
               ));
             },
             trailing: Row(

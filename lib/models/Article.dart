@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'Category.dart';
 
@@ -166,12 +167,10 @@ class Article {
       Map<String, dynamic>? favorisData = favoris.data() as Map<String, dynamic>?;
       if (favorisData != null) {
         if (favorisData['idArticle'] == this.id) {
-          print("Article ${this.id} est dans les favoris de l'utilisateur $uidUser");
           return true;
         }
       }
     }
-    print("Article ${this.id} n'est pas dans les favoris de l'utilisateur $uidUser");
     return false;
   }
 
@@ -186,5 +185,38 @@ class Article {
       updatedAt: updatedAt,
       category: category,
     );
+  }
+
+  void updateFavoriteStatus(String uid, bool isFavorite) {
+    if (isFavorite) {
+      FirebaseFirestore.instance.collection("favorisUser").add({
+        "idUser": uid,
+        "idArticle": this.id,
+      });
+      print("Article ${this.id} est dans les favoris de l'utilisateur $uid");
+    } else {
+      FirebaseFirestore.instance.collection("favorisUser").where("idUser", isEqualTo: uid).where("idArticle", isEqualTo: this.id).get().then((value) {
+        value.docs.forEach((element) {
+          FirebaseFirestore.instance.collection("favorisUser").doc(element.id).delete();
+        });
+      });
+      print("Article ${this.id} n'est plus dans les favoris de l'utilisateur $uid");
+    }
+  }
+
+  static Future<List<Article>> getFavoriteArticlesFirebase() async {
+    List<Article> articles = [];
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("favorisUser").where("idUser", isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
+    List<QueryDocumentSnapshot> documents = querySnapshot.docs;
+    for (QueryDocumentSnapshot document in documents) {
+      int id = document['idArticle'];
+      List<Article> firebaseArticles = await Article.getFirebaseArticles();
+      for (Article article in firebaseArticles) {
+        if (article.id == id) {
+          articles.add(article);
+        }
+      }
+    }
+    return articles;
   }
 }

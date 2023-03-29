@@ -1,103 +1,87 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Article.dart';
 
-class detail extends StatelessWidget{
-  final Article? article;
-  const detail(this.article, {super.key});
+class detail extends StatefulWidget {
+  final Article article;
+
+  detail({required this.article});
+
+  @override
+  _detailPageState createState() => _detailPageState();
+}
+
+class _detailPageState extends State<detail> {
+  bool isFavorite = false;
+
+  void _toggleFavorite() {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+
+    // mettez à jour l'état de l'article dans Firebase
+    // en utilisant l'ID de l'utilisateur actuel
+    String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
+    widget.article.updateFavoriteStatus(uid, isFavorite);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // initialiser l'état de l'article en fonction de sa valeur dans Firebase
+    String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
+    widget.article.isFavorisArticle(uid).then((value) {
+      setState(() {
+        isFavorite = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool isUserConnected = FirebaseAuth.instance.currentUser != null;
-    // id de l'utilisateur connecté
-    String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
-    // id de l'article
-    int articleId = article?.getId ?? 0;
-    // isFavori est un Future<bool> qui contient true si l'article est dans la liste des favoris de l'utilisateur connecté
-    Future<bool>? isFavori = article?.isFavorisArticle(uid);
-
-    return FutureBuilder(
-        future: isFavori,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (snapshot.hasData) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(article?.title ?? ''),
-                actions: <Widget>[
-                  if (snapshot.data == true && isUserConnected)
-                    IconButton(
-                      icon: const Icon(Icons.favorite),
-                      onPressed: () {
-                        FirebaseFirestore.instance
-                            .collection("favorisUser")
-                            .where('idArticle', isEqualTo: articleId)
-                            .where('idUser', isEqualTo: uid)
-                            .get()
-                            .then((value) {
-                          value.docs.forEach((element) {
-                            FirebaseFirestore.instance
-                                .collection("favorisUser")
-                                .doc(element.id)
-                                .delete();
-                          });
-                        });
-                      },
-                      //TODO actualiser la page
-                    )
-                  else if (snapshot.data == false && isUserConnected)
-                    IconButton(
-                      icon: const Icon(Icons.favorite_border),
-                      onPressed: () {
-                        FirebaseFirestore.instance.collection("favorisUser").add({
-                          'idArticle': articleId,
-                          'idUser': uid,
-                        });
-                      },
-                    )
-                ],
-              ),
-              body: ListView(
-                children: [
-                  ListTile(
-                    title: const Text("Title"),
-                    subtitle: Text(article?.title ?? ''),
-                  ),
-                  ListTile(
-                    title: const Text("Price"),
-                    subtitle: Text(article?.price.toString() ?? ''),
-                  ),
-                  ListTile(
-                    title: const Text("Description"),
-                    subtitle: Text(article?.description ?? ''),
-                  ),
-                  ListTile(
-                    title: const Text("CreationAt"),
-                    subtitle: Text(article?.creationAt.toString() ?? ''),
-                  ),
-                  ListTile(
-                    title: const Text("UpdatedAt"),
-                    subtitle: Text(article?.updatedAt.toString() ?? ''),
-                  ),
-                  ListTile(
-                    title: const Text("Category"),
-                    subtitle: Text(article?.category.toString() ?? ''),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(article?.title ?? ''),
-              ),
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Détails de l\'article'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              isFavorite ? Icons.star : Icons.star_border,
+              color: Colors.white,
+            ),
+            onPressed: _toggleFavorite,
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            title: const Text("Title"),
+            subtitle: Text(widget.article.title),
+          ),
+          ListTile(
+            title: const Text("Price"),
+            subtitle: Text(widget.article.price.toString()),
+          ),
+          ListTile(
+            title: const Text("Description"),
+            subtitle: Text(widget.article.description),
+          ),
+          ListTile(
+            title: const Text("CreationAt"),
+            subtitle: Text(widget.article.creationAt.toString()),
+          ),
+          ListTile(
+            title: const Text("UpdatedAt"),
+            subtitle: Text(widget.article.updatedAt.toString()),
+          ),
+          ListTile(
+            title: const Text("Category"),
+            subtitle: Text(widget.article.category.toString()),
+          ),
+        ],
+      ),
     );
   }
 }

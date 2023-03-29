@@ -113,19 +113,21 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.collections_bookmark),
             label: 'Bibliothèque',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.new_releases),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
             label: 'Mes favoris',
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Historique',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.explore),
-            label: 'Explorer',
-          ),
-          if(user == null)
+          if (FirebaseAuth.instance.currentUser != null)
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.history),
+              label: 'Historique',
+            ),
+          if (FirebaseAuth.instance.currentUser != null)
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.explore),
+              label: 'Explorer',
+            ),
+          if (FirebaseAuth.instance.currentUser != null)
             const BottomNavigationBarItem(
               icon: Icon(Icons.more_horiz),
               label: 'Connexion',
