@@ -11,7 +11,7 @@ class Article {
   String title;
   int price;
   String description;
-  List<dynamic> images;
+  String image;
   String creationAt;
   String updatedAt;
   Category category;
@@ -21,7 +21,7 @@ class Article {
     required this.title,
     required this.price,
     required this.description,
-    required this.images,
+    required this.image,
     required this.creationAt,
     required this.updatedAt,
     required this.category,
@@ -34,7 +34,7 @@ class Article {
       title: 'Article $nb',
       price: 100,
       description: 'Description de l\'article $nb',
-      images: ['https://picsum.photos/200/300'],
+      image: 'https://picsum.photos/200/300',
       creationAt: DateTime.now().toString(),
       updatedAt: DateTime.now().toString(),
       category: Category(id: 1, name: 'Category 1'),
@@ -45,7 +45,7 @@ class Article {
     required String title,
     required int price,
     required String description,
-    required List<dynamic> images,
+    required String image,
     required String creationAt,
     required String updatedAt,
     required Category category,
@@ -56,7 +56,7 @@ class Article {
       title: title,
       price: price,
       description: description,
-      images: images,
+      image: image,
       creationAt: creationAt,
       updatedAt: updatedAt,
       category: category,
@@ -94,7 +94,7 @@ class Article {
           title: item['title'],
           price: item['price'],
           description: item['description'],
-          images: item['images'],
+          image: item['images'][0],
           creationAt: item['creationAt'],
           updatedAt: item['updatedAt'],
           category: Category(
@@ -115,7 +115,7 @@ class Article {
       'title': title,
       'price': price,
       'description': description,
-      'images': images,
+      'image': image,
       'creationAt': creationAt,
       'updatedAt': updatedAt,
       'category': category.toJson(),
@@ -127,7 +127,7 @@ class Article {
       title: json['title'],
       price: json['price'],
       description: json['description'],
-      images: json['images'],
+      image: json['image'],
       creationAt: json['creationAt'],
       updatedAt: json['updatedAt'],
       category: Category(
@@ -137,7 +137,7 @@ class Article {
 
   @override
   String toString() {
-    return 'Article{id: $id, title: $title, price: $price, description: $description, images: $images, creationAt: $creationAt, updatedAt: $updatedAt, category: $category}';
+    return 'Article{id: $id, title: $title, price: $price, description: $description, image: $image, creationAt: $creationAt, updatedAt: $updatedAt, category: $category}';
   }
 
   static Future<List<Article>> getFirebaseArticles() async {
@@ -150,7 +150,7 @@ class Article {
           title: element['title'],
           price: element['price'],
           description: element['description'],
-          images: element['images'],
+          image: element['images'],
           creationAt: element['creationAt'],
           updatedAt: element['updatedAt'],
           category: Category(
@@ -174,13 +174,13 @@ class Article {
     return false;
   }
 
-  static newArticleWithArgsAndId({required id, required title, required price, required description, required images, required creationAt, required updatedAt, required Category category}) {
+  static newArticleWithArgsAndId({required id, required title, required price, required description, required image, required creationAt, required updatedAt, required Category category}) {
     return Article(
       id: id,
       title: title,
       price: price,
       description: description,
-      images: images,
+      image: image,
       creationAt: creationAt,
       updatedAt: updatedAt,
       category: category,

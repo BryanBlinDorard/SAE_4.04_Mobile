@@ -15,6 +15,7 @@ class detail extends StatefulWidget {
 
 class _detailPageState extends State<detail> {
   bool isFavorite = false;
+  String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
 
   void _toggleFavorite() {
     setState(() {
@@ -23,7 +24,6 @@ class _detailPageState extends State<detail> {
 
     // mettez à jour l'état de l'article dans Firebase
     // en utilisant l'ID de l'utilisateur actuel
-    String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
     widget.article.updateFavoriteStatus(uid, isFavorite);
   }
 
@@ -45,13 +45,13 @@ class _detailPageState extends State<detail> {
       appBar: AppBar(
         title: Text('Détails de l\'article'),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              isFavorite ? Icons.star : Icons.star_border,
-              color: Colors.white,
+          if (uid != '')
+            IconButton(
+              icon: Icon(
+                isFavorite ? Icons.star : Icons.star_border,
+              ),
+              onPressed: _toggleFavorite,
             ),
-            onPressed: _toggleFavorite,
-          ),
         ],
       ),
       body: ListView(
@@ -62,7 +62,7 @@ class _detailPageState extends State<detail> {
           ),
           ListTile(
             title: const Text("Price"),
-            subtitle: Text(widget.article.price.toString()),
+            subtitle: Text(widget.article.price.toString() + " €"),
           ),
           ListTile(
             title: const Text("Description"),
@@ -79,6 +79,10 @@ class _detailPageState extends State<detail> {
           ListTile(
             title: const Text("Category"),
             subtitle: Text(widget.article.category.toString()),
+          ),
+          ListTile(
+            title: const Text("Image"),
+            trailing: Image.network(widget.article.image),
           ),
         ],
       ),

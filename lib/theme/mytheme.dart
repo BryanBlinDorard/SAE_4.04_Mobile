@@ -84,6 +84,7 @@ class MyTheme {
         unselectedItemColor: Colors.grey,
       ),
       textTheme: lightTextTheme,
+      iconTheme: const IconThemeData(color: Colors.black),
     );
   }
 
@@ -103,6 +104,7 @@ class MyTheme {
         selectedItemColor: Colors.green,
       ),
       textTheme: darkTextTheme,
+      iconTheme: const IconThemeData(color: Colors.white),
     );
   }
 }
