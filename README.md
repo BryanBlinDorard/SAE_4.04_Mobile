@@ -2,6 +2,10 @@
 
 Dans le cadre de la SAE Développement Mobile, ce projet consiste à développer une application Flutter de vente/achat d'articles entre particuliers. 
 
+## Développeurs
+- Constantin Loszach
+- Bryan Blin--Dorard
+
 ## Fonctionnalités
 
 ### Consultation des articles
