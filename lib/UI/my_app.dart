@@ -38,14 +38,14 @@ class MyApp extends StatelessWidget {
         builder: (context, settingViewModel, child){
           if (SplashScreenViewModel().isCoched) {
             return MaterialApp(
-              title: 'TD2',
+              title: 'saeFlutter',
               theme: settingViewModel.isDark ? MyTheme.dark() : MyTheme.light(),
               home: Home(),
               debugShowCheckedModeBanner: false,
             );
           } else {
             return MaterialApp(
-              title: 'TD2',
+              title: 'saeFlutter',
               theme: settingViewModel.isDark ? MyTheme.dark() : MyTheme.light(),
               home: SplashScreen(),
               debugShowCheckedModeBanner: false,

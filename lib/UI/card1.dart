@@ -20,9 +20,6 @@ class Card1 extends StatelessWidget{
           elevation: 5,
           margin: const EdgeInsets.all(6),
           child: ListTile(
-            leading: CircleAvatar(
-              child: Text(articles[index].getId.toString()),
-            ),
             title: Text(articles[index].title),
             subtitle: Text(articles[index].description.length > 30 ? '${articles[index].description.substring(0, 30)}...' : articles[index].description),
             onTap: () {

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../theme/mytheme.dart';
-import 'Article.dart';
 import 'SettingViewModel.dart';
 
 class EcranSettings extends StatefulWidget{

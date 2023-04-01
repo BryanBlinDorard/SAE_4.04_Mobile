@@ -33,16 +33,18 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('HayStore'),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.search),
-            tooltip: 'Rechercher',
-            onPressed: () {},
-          ),
-          IconButton(
+          if (_selectedIndex == 0)
+            IconButton(
+              icon: const Icon(Icons.search),
+              tooltip: 'Rechercher',
+              onPressed: () {},
+            ),
+          if (_selectedIndex == 0)
+            IconButton(
             icon: const Icon(Icons.filter_list),
             tooltip: 'Filtre',
             onPressed: () {},
-          ),
+            ),
           PopupMenuButton(
             itemBuilder: (BuildContext context) {
               return [
