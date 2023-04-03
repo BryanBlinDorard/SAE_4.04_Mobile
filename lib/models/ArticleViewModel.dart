@@ -29,4 +29,8 @@ class ArticleViewModel extends ChangeNotifier{
   Future<List<Article>> getArticles() async{
     return liste;
   }
+
+  getArticleBySearch(String searchText) {
+    return liste.where((element) => element.title.contains(searchText)).toList();
+  }
 }

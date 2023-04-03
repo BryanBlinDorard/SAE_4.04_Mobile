@@ -72,6 +72,7 @@ class Article {
   }
 
   int get getId => id;
+  String get getTitle => title;
 
   static Future<List<Article>> getArticlesAPI() async {
     // Création d'une liste d'articles
@@ -218,5 +219,18 @@ class Article {
       }
     }
     return articles;
+  }
+
+  toLowerCase() {
+    return {
+      'id': id,
+      'title': title.toLowerCase(),
+      'price': price,
+      'description': description.toLowerCase(),
+      'image': image,
+      'creationAt': creationAt,
+      'updatedAt': updatedAt,
+      'category': category.toJson(),
+    };
   }
 }

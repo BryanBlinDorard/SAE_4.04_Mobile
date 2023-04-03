@@ -14,7 +14,6 @@ class Card1 extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     articles = context.watch<ArticleViewModel>().liste;
-    // créer un gridview builder
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,

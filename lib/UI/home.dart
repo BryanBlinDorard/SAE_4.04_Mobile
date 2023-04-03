@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sae_flutter/UI/login_page.dart';
+import 'package:sae_flutter/UI/search_page.dart';
 import 'package:sae_flutter/UI/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -37,7 +38,12 @@ class _HomeState extends State<Home> {
             IconButton(
               icon: const Icon(Icons.search),
               tooltip: 'Rechercher',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchPage()),
+                );
+              },
             ),
           if (_selectedIndex == 0)
             IconButton(
