@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:sae_flutter/models/SplashScreenRepository.dart';
 
@@ -8,7 +9,6 @@ class SplashScreenViewModel extends ChangeNotifier {
 
   SplashScreenViewModel() {
     _splashScreenRepository = SplashScreenRepository();
-    //TODO : à modifier ici pour case cochée
     _isCoched = false;
     getSplashScreen();
   }
@@ -19,8 +19,13 @@ class SplashScreenViewModel extends ChangeNotifier {
   }
 
   void saveSplashScreen(bool value) async {
+    print(value);
     _isCoched = value;
     _splashScreenRepository.saveSplashScreen(value);
     notifyListeners();
+  }
+
+  Future<bool> getIsCoched() async {
+    return await _splashScreenRepository.getSplashScreen();
   }
 }

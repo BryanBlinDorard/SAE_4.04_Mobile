@@ -16,15 +16,6 @@ class SplashScreen extends StatelessWidget{
           children: [
             Text('Bienvenue sur mon application'),
             // crée une checkbox et un bouton
-            CheckboxListTile(
-              title: Text('Ne plus afficher ce message'),
-              value: false,
-              onChanged: (value) async {
-                SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                sharedPreferences.setBool('splashScreen', value!);
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
-              },
-            ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
