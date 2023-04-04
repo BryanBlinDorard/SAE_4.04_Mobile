@@ -36,6 +36,20 @@ Nous avons implémenté une page dédiée à l'historique des achats qui permet 
 ### Outils de recherche
 Nous avons ajouté une recherche d'articles à l'application. Quand nous cliquons sur le bouton dédié, l'utilisateur peut rechercher un article via le nom.
 
+## Packages utilisés
+- `settings_ui`: une bibliothèque pour créer une interface utilisateur pour les paramètres de l'application.
+- `provider`: un package qui fournit un moyen simple et efficace de gérer l'état de l'application.
+- `http`: un package pour effectuer des requêtes HTTP dans l'application.
+- `shared_preferences`: une bibliothèque pour stocker des données de préférences utilisateur de manière persistante.
+- `flutter_form_builder`: un package pour créer facilement des formulaires avec Flutter.
+- `form_builder_validators`: un package qui fournit des validateurs pour les formulaires créés avec flutter_form_builder.
+- `sqflite`: une bibliothèque SQLite pour Flutter, qui permet de stocker des données localement.
+- `path`: une bibliothèque pour manipuler des chemins de fichiers dans Flutter.
+- `firebase_core`: un package pour ajouter la prise en charge de Firebase à votre application Flutter.
+- `firebase_auth`: un package pour ajouter la prise en charge de l'authentification Firebase à votre application Flutter.
+- `cloud_firestore`: un package pour ajouter la prise en charge de la base de données Firestore de Firebase à votre application Flutter.
+- `flutter_staggered_grid_view`: un package pour afficher des grilles de manière irrégulière
+
 
 ## Installation
 
