@@ -233,4 +233,5 @@ class Article {
       'category': category.toJson(),
     };
   }
+
 }

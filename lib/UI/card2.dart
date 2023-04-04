@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sae_flutter/UI/detail.dart';
 import 'package:sae_flutter/models/Article.dart';
-import 'package:sae_flutter/models/ArticleViewModel.dart';
 
-import '../models/Category.dart';
 
 
 class Card2 extends StatelessWidget {

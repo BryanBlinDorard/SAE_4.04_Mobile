@@ -4,7 +4,6 @@ import 'package:sae_flutter/UI/search_page.dart';
 import 'package:sae_flutter/UI/settings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'add_article.dart';
 import 'card1.dart';
 import 'card2.dart';
 import 'card3.dart';
@@ -101,18 +100,6 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: pages[_selectedIndex],
-      floatingActionButton: _selectedIndex == 0
-          ? FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddArticle()),
-                );
-              },
-              tooltip: 'Ajouter',
-              child: const Icon(Icons.add),
-            )
-          : null,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
@@ -127,13 +114,13 @@ class _HomeState extends State<Home> {
           ),
           if (FirebaseAuth.instance.currentUser != null)
             const BottomNavigationBarItem(
-              icon: Icon(Icons.history),
-              label: 'Historique',
+              icon: Icon(Icons.shopping_cart),
+              label: 'Mon Panier',
             ),
           if (FirebaseAuth.instance.currentUser != null)
             const BottomNavigationBarItem(
-              icon: Icon(Icons.explore),
-              label: 'Explorer',
+              icon: Icon(Icons.history),
+              label: 'Historique d\'achat',
             ),
           if (FirebaseAuth.instance.currentUser != null)
             const BottomNavigationBarItem(
