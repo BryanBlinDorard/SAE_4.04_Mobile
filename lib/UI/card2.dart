@@ -7,12 +7,14 @@ import 'package:sae_flutter/models/Article.dart';
 
 
 class Card2 extends StatelessWidget {
+  const Card2({super.key});
+
   @override
   Widget build(BuildContext context) {
     String uid = FirebaseAuth.instance.currentUser?.uid ?? '';
 
     if (uid == '') {
-      return Center(
+      return const Center(
         child: Text('Vous devez être connecté pour voir vos favoris'),
       );
     }
@@ -26,7 +28,7 @@ class Card2 extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
@@ -37,8 +39,8 @@ class Card2 extends StatelessWidget {
                   // On récupère la liste d'articles
                   List<Article> articles = snapshot.data!;
                   // On retourne un ListView.builder qui va afficher les articles
-                  if (articles.length == 0) {
-                    return Center(
+                  if (articles.isEmpty) {
+                    return const Center(
                       child: Text('Aucun article en favoris'),
                     );
                   } else {
@@ -65,7 +67,7 @@ class Card2 extends StatelessWidget {
                     );
                   }
                 } else {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }

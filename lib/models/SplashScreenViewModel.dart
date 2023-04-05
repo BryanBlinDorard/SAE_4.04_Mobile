@@ -19,7 +19,6 @@ class SplashScreenViewModel extends ChangeNotifier {
   }
 
   void saveSplashScreen(bool value) async {
-    print(value);
     _isCoched = value;
     _splashScreenRepository.saveSplashScreen(value);
     notifyListeners();

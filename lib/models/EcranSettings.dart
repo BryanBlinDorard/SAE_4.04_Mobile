@@ -14,7 +14,6 @@ class EcranSettings extends StatefulWidget{
   State<EcranSettings> createState() => _EcranSettingsState();
 }
 class _EcranSettingsState extends State<EcranSettings> {
-  bool _dark =true;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -43,7 +42,7 @@ class _EcranSettingsState extends State<EcranSettings> {
               ]),
           SettingsSection(
             // affiche le mail de l'utilisateur connecté
-            title: Text('Utilisateur'),
+            title: const Text('Utilisateur'),
             tiles: [
               SettingsTile(
                 title: Text(FirebaseAuth.instance.currentUser?.email ?? 'Non connecté'),
@@ -54,11 +53,5 @@ class _EcranSettingsState extends State<EcranSettings> {
         ],
       ),
     );
-  }
-  _onToggle(bool value) {
-    debugPrint('value $value');
-    setState(() {
-      _dark = !_dark;
-    });
   }
 }

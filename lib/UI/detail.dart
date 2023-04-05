@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Article.dart';
@@ -8,7 +7,7 @@ import '../models/Panier.dart';
 class detail extends StatefulWidget {
   final Article article;
 
-  detail({required this.article});
+  const detail({super.key, required this.article});
 
   @override
   _detailPageState createState() => _detailPageState();
@@ -63,7 +62,7 @@ class _detailPageState extends State<detail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Détails de l\'article'),
+        title: const Text('Détails de l\'article'),
         actions: <Widget>[
           if (uid != '')
             IconButton(
@@ -84,7 +83,7 @@ class _detailPageState extends State<detail> {
             ),
             ListTile(
               title: const Text("Price"),
-              subtitle: Text(widget.article.price.toString() + " €"),
+              subtitle: Text("${widget.article.price} €"),
             ),
             ListTile(
               title: const Text("Description"),
@@ -110,18 +109,18 @@ class _detailPageState extends State<detail> {
               if (inPanier)
                 ElevatedButton(
                   onPressed: _togglePanier,
-                  child: const Text('Retirer du panier'),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.red,
+                    backgroundColor: Colors.red,
                   ),
+                  child: const Text('Retirer du panier'),
                 )
               else
                 ElevatedButton(
                   onPressed: _togglePanier,
-                  child: const Text('Ajouter au panier'),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
+                    backgroundColor: Colors.green,
                   ),
+                  child: const Text('Ajouter au panier'),
                 ),
           ],
         ),

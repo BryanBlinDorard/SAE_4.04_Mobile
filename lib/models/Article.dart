@@ -79,7 +79,7 @@ class Article {
     List<Article> articles = [];
 
     await Future.delayed(Duration(seconds: 2));
-    final String apiUrl = 'https://api.escuelajs.co/api/v1/products';
+    const String apiUrl = 'https://api.escuelajs.co/api/v1/products';
 
     // Envoi de la requête GET
     final response = await http.get(Uri.parse(apiUrl));
@@ -144,7 +144,7 @@ class Article {
   static Future<List<Article>> getFirebaseArticles() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection("articles").get();
     List<Article> articles = [];
-    querySnapshot.docs.forEach((element) {
+    for (var element in querySnapshot.docs) {
       articles.add(
         Article.newArticleWithArgsAndId(
           id: element['id'],
@@ -158,7 +158,7 @@ class Article {
               id: element['category']['id'], name: element['category']['name']),
         ),
       );
-    });
+    }
     return articles;
   }
 
@@ -167,7 +167,7 @@ class Article {
     for (var favoris in querySnapshot.docs) {
       Map<String, dynamic>? favorisData = favoris.data() as Map<String, dynamic>?;
       if (favorisData != null) {
-        if (favorisData['idArticle'] == this.id) {
+        if (favorisData['idArticle'] == id) {
           return true;
         }
       }
@@ -192,16 +192,16 @@ class Article {
     if (isFavorite) {
       FirebaseFirestore.instance.collection("favorisUser").add({
         "idUser": uid,
-        "idArticle": this.id,
+        "idArticle": id,
       });
-      print("Article ${this.id} est dans les favoris de l'utilisateur $uid");
+      print("Article $id est dans les favoris de l'utilisateur $uid");
     } else {
-      FirebaseFirestore.instance.collection("favorisUser").where("idUser", isEqualTo: uid).where("idArticle", isEqualTo: this.id).get().then((value) {
-        value.docs.forEach((element) {
+      FirebaseFirestore.instance.collection("favorisUser").where("idUser", isEqualTo: uid).where("idArticle", isEqualTo: id).get().then((value) {
+        for (var element in value.docs) {
           FirebaseFirestore.instance.collection("favorisUser").doc(element.id).delete();
-        });
+        }
       });
-      print("Article ${this.id} n'est plus dans les favoris de l'utilisateur $uid");
+      print("Article $id n'est plus dans les favoris de l'utilisateur $uid");
     }
   }
 

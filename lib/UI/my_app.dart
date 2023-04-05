@@ -7,7 +7,6 @@ import 'package:sae_flutter/models/SplashScreenViewModel.dart';
 import '../models/SettingViewModel.dart';
 import '../models/ArticleViewModel.dart';
 import '../theme/mytheme.dart';
-import 'home.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -39,7 +38,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
               title: 'saeFlutter',
               theme: settingViewModel.isDark ? MyTheme.dark() : MyTheme.light(),
-              home: SplashScreen(),
+              home: const SplashScreen(),
               debugShowCheckedModeBanner: false,
           );
         }

@@ -23,7 +23,7 @@ class Panier {
       "idUser": uid,
       "idArticle": id,
     });
-    print("Article ${id} est dans le panier de l'utilisateur $uid");
+    print("Article $id est dans le panier de l'utilisateur $uid");
   }
 
   static Future<List<Article>> getPanierArticlesFirebase() async {
@@ -44,11 +44,11 @@ class Panier {
 
   static void removePanierArticle(String uid, int id) {
     FirebaseFirestore.instance.collection("panierUser").where("idUser", isEqualTo: uid).where("idArticle", isEqualTo: id).get().then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         FirebaseFirestore.instance.collection("panierUser").doc(element.id).delete();
-      });
+      }
     });
-    print("Article ${id} n'est plus dans le panier de l'utilisateur $uid");
+    print("Article $id n'est plus dans le panier de l'utilisateur $uid");
   }
 
   static void updatePanierStatus(String uid, bool inPanier, int id) {

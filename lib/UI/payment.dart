@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../models/Article.dart';
 import '../models/Panier.dart';
 
 class payment extends StatelessWidget{
@@ -18,7 +17,7 @@ class payment extends StatelessWidget{
           double prix = snapshot.data ?? 0.0; // convertir en double
           return Scaffold(
             appBar: AppBar(
-              title: Text("Paiement"),
+              title: const Text("Paiement"),
             ),
             body: Center(
               child: Column(
@@ -30,14 +29,14 @@ class payment extends StatelessWidget{
                       Panier.payerPanier(uid, prix);
                       Navigator.pop(context);
                     },
-                    child: Text("Payer"),
+                    child: const Text("Payer"),
                   ),
                 ],
               ),
             ),
           );
         }else{
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
       },
     );

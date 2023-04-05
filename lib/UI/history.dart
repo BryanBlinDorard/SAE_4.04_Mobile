@@ -11,21 +11,21 @@ class historyPage extends StatelessWidget{
       future: historiques,
       builder: (BuildContext context, AsyncSnapshot<List<Historique>> snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data!.length == 0) {
-            return Center(child: Text("Aucun historique"));
+          if (snapshot.data!.isEmpty) {
+            return const Center(child: Text("Aucun historique"));
           } else {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (BuildContext context, int index) {
                 return Card(
                   child: ExpansionTile(
-                    title: Text(snapshot.data![index].date.toString().substring(0, 10) + " - " + snapshot.data![index].date.toString().substring(11, 16)),
-                    subtitle: Text(snapshot.data![index].prix.toString() + "€"),
+                    title: Text("${snapshot.data![index].date.toString().substring(0, 10)} - ${snapshot.data![index].date.toString().substring(11, 16)}"),
+                    subtitle: Text("${snapshot.data![index].prix}€"),
                     children: [
                       for (var article in snapshot.data![index].articles)
                         ListTile(
                           title: Text(article.title),
-                          subtitle: Text(article.price.toString() + "€"),
+                          subtitle: Text("${article.price}€"),
                           leading: Image.network(article.image),
                         )
                     ]
@@ -35,7 +35,7 @@ class historyPage extends StatelessWidget{
             );
           }
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

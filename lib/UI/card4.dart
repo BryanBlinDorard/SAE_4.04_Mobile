@@ -7,6 +7,6 @@ class Card4 extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return historyPage();
+    return const historyPage();
   }
 }

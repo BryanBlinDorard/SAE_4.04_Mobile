@@ -11,6 +11,8 @@ import 'card4.dart';
 import 'card5.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   State<Home> createState() => _HomeState();
 }
@@ -19,16 +21,15 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
   static List<Widget> pages = <Widget>[
     Card1(),
-    Card2(),
-    Card3(),
-    Card4(),
-    Card5(),
+    const Card2(),
+    const Card3(),
+    const Card4(),
+    const Card5(),
   ];
 
 
   @override
   Widget build(BuildContext context) {
-    final User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text('HayStore'),
@@ -40,7 +41,7 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SearchPage()),
+                  MaterialPageRoute(builder: (context) => const SearchPage()),
                 );
               },
             ),
@@ -60,7 +61,7 @@ class _HomeState extends State<Home> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Settings()),
+                        MaterialPageRoute(builder: (context) => const Settings()),
                       );
                     },
                   ),
@@ -75,7 +76,7 @@ class _HomeState extends State<Home> {
                         // actualiser la page
                         Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => Home()),
+                          MaterialPageRoute(builder: (context) => const Home()),
                           (Route<dynamic> route) => false,
                         );
                       },
@@ -89,7 +90,7 @@ class _HomeState extends State<Home> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          MaterialPageRoute(builder: (context) => const LoginPage()),
                         );
                       },
                     ),
@@ -108,7 +109,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.collections_bookmark),
             label: 'Bibliothèque',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.star),
             label: 'Mes favoris',
           ),

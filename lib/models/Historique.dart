@@ -53,9 +53,9 @@ class Historique {
 
   static List<Historique> trierHistorique(List<Historique> historiques) {
     historiques.sort((a, b) => b.date.compareTo(a.date));
-    historiques.forEach((historique) {
+    for (var historique in historiques) {
       historique.articles.sort((a, b) => a.title.compareTo(b.title));
-    });
+    }
     return historiques;
   }
 

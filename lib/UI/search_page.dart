@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sae_flutter/UI/detail.dart';
@@ -6,6 +5,8 @@ import 'package:sae_flutter/UI/detail.dart';
 import '../models/ArticleViewModel.dart';
 
 class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -17,7 +18,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recherche"),
+        title: const Text("Recherche"),
       ),
       body: Column(
         children: [
@@ -27,7 +28,7 @@ class _SearchPageState extends State<SearchPage> {
                 _searchText = value;
               });
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Rechercher...",
             ),
           ),

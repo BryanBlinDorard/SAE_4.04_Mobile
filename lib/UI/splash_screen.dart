@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sae_flutter/UI/home.dart';
-import 'package:sae_flutter/models/SplashScreenViewModel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'login_page.dart';
 
 
 class SplashScreen extends StatelessWidget{
+  const SplashScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,13 +12,13 @@ class SplashScreen extends StatelessWidget{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Bienvenue sur mon application'),
+            const Text('Bienvenue sur mon application'),
             // crée une checkbox et un bouton
             ElevatedButton(
               onPressed: () {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home()));
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
               },
-              child: Text('Continuer'),
+              child: const Text('Continuer'),
             ),
           ],
         ),
