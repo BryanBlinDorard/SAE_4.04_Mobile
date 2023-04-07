@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:provider/provider.dart';
 import 'package:sae_flutter/UI/signup_page.dart';
 
+import '../models/google_sign_in.dart';
 import 'home.dart';
 
 
@@ -86,6 +89,51 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 20.0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey[700],
+                          height: 1.5,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          "ou continuer avec",
+                          style: TextStyle(
+                            color: Colors.grey[700],
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: Colors.grey[700],
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(padding: const EdgeInsets.only(top: 20.0)),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    signInWithGoogle();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black87,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    maximumSize: const Size(double.infinity, 50),
+                  ),
+                  icon: const FaIcon(FontAwesomeIcons.google, color: Colors.red),
+                  label: const Text('Google'),
+                ),
               ],
             ),
           )
@@ -99,6 +147,25 @@ class _LoginPageState extends State<LoginPage> {
         email: _usernameController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const Home()),
+            (Route<dynamic> route) => false,
+      );
+    } on FirebaseAuthException catch (e)  {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message!),
+        ),
+      );
+    }
+  }
+
+  void signInWithGoogle() {
+    try {
+      final provider = context.read<GoogleSignInProvider>();
+      provider.signInWithGoogle();
+      print('Signed in with Google');
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => const Home()),

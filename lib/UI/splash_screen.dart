@@ -13,6 +13,7 @@ class SplashScreen extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Bienvenue sur mon application'),
+            const Text('Elle a été créée avec Flutter pour la SAE de cette matière'),
             // crée une checkbox et un bouton
             ElevatedButton(
               onPressed: () {
