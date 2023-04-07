@@ -1,6 +1,6 @@
 # SAE Mobile
 
-Dans le cadre de la SAE Développement Mobile, ce projet consiste à développer une application Flutter de vente/achat d'articles entre particuliers. 
+Dans le cadre de la SAE Développement Mobile, ce projet consiste à développer une application Flutter d'achat d'articles.
 
 ## Développeurs
 - Constantin Loszach
@@ -10,12 +10,12 @@ Dans le cadre de la SAE Développement Mobile, ce projet consiste à développer
 
 ### Consultation des articles
 
-Dans un premier temps, nous utiliserons l'API Platzi Fake Store (https://fakeapi.platzi.com/) pour obtenir une liste d'articles. Les articles disponibles seront affichés dans une ListView sur la première page de l'application
+Dans un premier temps, nous utiliseons l'API Platzi Fake Store (https://fakeapi.platzi.com/) pour obtenir une liste d'articles. Les articles disponibles seront affichés dans une ListView sur la première page de l'application
 Lorsque nous cliquons sur un article, nous accédons à sa fiche avec toutes les informations disponibles.
 
 ### Gestion des articles favoris
 
-Nous avons mis en place une gestion des articles favoris. Nous pourrons ajouter/retirer un article à nos favoris directement la fiche détail. Nous disposerons également d'une ListView qui affiche tous nos favoris. Ces favoris seront sauvegardés en ligne donc même si nous quittons l'application.
+Nous avons mis en place une gestion des articles favoris. Nous pourrons ajouter/retirer un article à nos favoris directement la fiche détail. Nous disposeons également d'une ListView qui affiche tous nos favoris. Ces favoris seront sauvegardés en ligne donc même si nous quittons l'application.
 
 ### Utilisation d'un service d'authentification et de stockage
 
@@ -63,3 +63,9 @@ Pour installer l'application, voici les étapes à suivre :
 6. Lancer l'application en utilisant la commande suivante dans le terminal : `flutter run`
 
 Ces étapes permettront d'installer et de lancer l'application avec succès. Notez que pour utiliser Firebase dans votre application, vous devrez également créer un compte Firebase et configurer les clés API Firebase dans votre application.
+(*Il est possible que vous ayez une erreur au lancement dû à une erreur de version de package*)
+
+## Comment lancer l'application
+Vous pouvez lancer l'application de deux manières différentes :
+  - En utilisant un émulateur directement depuis l'IDE de développement.
+  - En installant l'APK fourni dans la section Release sur votre téléphone Android.
