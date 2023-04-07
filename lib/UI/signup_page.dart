@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'home.dart';
@@ -86,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ],
                 ),
-              ],
+            ],
             ),
           )
       ),
@@ -112,5 +113,9 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       );
     }
+  }
+
+  void inscriptionGoogle() {
+    print("inscriptionGoogle");
   }
 }

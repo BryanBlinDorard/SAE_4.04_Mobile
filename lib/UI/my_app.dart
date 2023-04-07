@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sae_flutter/UI/splash_screen.dart';
 import 'package:sae_flutter/models/SplashScreenViewModel.dart';
+import 'package:sae_flutter/models/google_sign_in.dart';
 
 
 import '../models/SettingViewModel.dart';
@@ -30,6 +31,11 @@ class MyApp extends StatelessWidget {
           create: (_){
             SplashScreenViewModel splashScreenViewModel = SplashScreenViewModel();
             return splashScreenViewModel;
+          }),
+        ChangeNotifierProvider(
+          create: (_){
+            GoogleSignInProvider googleSignInProvider = GoogleSignInProvider();
+            return googleSignInProvider;
           }
         )
       ],
