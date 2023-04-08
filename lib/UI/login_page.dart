@@ -161,10 +161,10 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void signInWithGoogle() {
+  void signInWithGoogle() async {
     try {
       final provider = context.read<GoogleSignInProvider>();
-      provider.signInWithGoogle();
+      await provider.signInWithGoogle();
       print('Signed in with Google');
       Navigator.pushAndRemoveUntil(
         context,
