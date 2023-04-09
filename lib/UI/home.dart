@@ -8,7 +8,6 @@ import 'card1.dart';
 import 'card2.dart';
 import 'card3.dart';
 import 'card4.dart';
-import 'card5.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -24,7 +23,6 @@ class _HomeState extends State<Home> {
     const Card2(),
     const Card3(),
     const Card4(),
-    const Card5(),
   ];
 
 
@@ -122,11 +120,6 @@ class _HomeState extends State<Home> {
             const BottomNavigationBarItem(
               icon: Icon(Icons.history),
               label: 'Historique d\'achat',
-            ),
-          if (FirebaseAuth.instance.currentUser != null)
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.more_horiz),
-              label: 'Connexion',
             ),
         ],
       ),
